@@ -22,3 +22,6 @@ Thumbs.db
 # Test and temporary files
 .pytest_cache/
 *.log
+
+# SQLite database
+*.db
