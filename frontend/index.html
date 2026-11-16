@@ -1,0 +1,187 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CattleStock | Health Monitor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-icon">🐄</div>
+            <div>
+                <h2>CattleStock</h2>
+                <small>Smart Livestock Health</small>
+            </div>
+        </div>
+
+        <p class="nav-label">WORKSPACE</p>
+        <a class="nav-item active" href="#dashboard">▦ &nbsp; Dashboard</a>
+        <a class="nav-item" href="#monitor">⌁ &nbsp; Sensor Monitor</a>
+        <a class="nav-item" href="#alerts">⚑ &nbsp; Anomaly Alerts</a>
+
+        <div class="sidebar-bottom">
+            <span class="status-dot"></span>
+            <span id="connectionText">Checking API...</span>
+        </div>
+    </aside>
+
+    <main class="main" id="dashboard">
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">LIVESTOCK INTELLIGENCE</p>
+                <h1>Health Monitoring Dashboard</h1>
+                <p class="muted">Monitor sensor readings and detect unusual patterns.</p>
+            </div>
+            <div class="date-pill">● &nbsp; Prototype Environment</div>
+        </header>
+
+        <section class="welcome">
+            <div>
+                <p class="eyebrow light">CATTLESTOCK MONITORING</p>
+                <h2>Smarter monitoring.<br>Earlier awareness.</h2>
+                <p>Submit sensor readings to your anomaly detection model.</p>
+                <a class="welcome-link" href="#monitor">Test sensor readings ↓</a>
+            </div>
+            <div class="cow-art">🐄</div>
+        </section>
+
+        <section class="metrics">
+            <article class="metric-card">
+                <div class="metric-heading">API STATUS <span>↗</span></div>
+                <h2 id="apiStatus">Checking...</h2>
+                <p class="metric-note">Backend connection</p>
+            </article>
+            <article class="metric-card">
+                <div class="metric-heading">LAST TEMPERATURE <span>♨</span></div>
+                <h2 id="lastTemp">—</h2>
+                <p class="metric-note">Most recent submitted value</p>
+            </article>
+            <article class="metric-card">
+                <div class="metric-heading">LAST ACTIVITY <span>⌁</span></div>
+                <h2 id="lastActivity">—</h2>
+                <p class="metric-note">Most recent submitted value</p>
+            </article>
+            <article class="metric-card">
+                <div class="metric-heading">ANOMALIES FLAGGED <span>⚑</span></div>
+                <h2 id="anomalyCount">0</h2>
+                <p class="metric-note">In this browser session</p>
+            </article>
+        </section>
+
+        <section class="content-grid">
+            <article class="panel" id="monitor">
+                <div class="panel-header">
+                    <div>
+                        <p class="eyebrow">MODEL INPUT</p>
+                        <h2>Test Sensor Readings</h2>
+                    </div>
+                    <span class="tag">ML powered</span>
+                </div>
+
+                <p class="muted">
+                    Enter values to send a request to your local FastAPI model.
+                </p>
+
+                <form id="sensorForm">
+                    <label for="temperature">Temperature (°C)</label>
+                    <input id="temperature" type="number" step="any"
+                           value="38.5" required>
+
+                    <label for="activity">Activity value</label>
+                    <input id="activity" type="number" step="any"
+                           value="10" required>
+
+                    <button id="submitButton" type="submit">
+                        Analyze Readings →
+                    </button>
+                </form>
+
+                <div class="result-box" id="resultBox" aria-live="polite">
+                    <span class="result-icon">✦</span>
+                    <div>
+                        <strong>Ready for analysis</strong>
+                        <p>Submit readings to see the model response.</p>
+                    </div>
+                </div>
+                <p class="disclaimer">
+                    Prototype only. An anomaly is not a disease diagnosis.
+                </p>
+            </article>
+
+            <article class="panel" id="alerts">
+                <div class="panel-header">
+                    <div>
+                        <p class="eyebrow">RECENT ACTIVITY</p>
+                        <h2>Analysis History</h2>
+                    </div>
+                    <span class="tag" id="historyCount">0 records</span>
+                </div>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Temperature</th>
+                                <th>Activity</th>
+                                <th>Result</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyBody">
+                            <tr>
+                                <td colspan="3" class="empty">
+                                    No readings analyzed yet.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="disclaimer">
+                    History is kept temporarily in this page only.
+                </p>
+            </article>
+        </section>
+       
+        <section class="charts-grid">
+            <article class="panel chart-panel">
+                <div class="panel-header">
+                    <div>
+                        <p class="eyebrow">SENSOR ANALYTICS</p>
+                        <h2>Temperature Trend</h2>
+                    </div>
+                    <span class="tag">°C</span>
+                </div>
+                <p class="muted">Temperature values submitted during this session.</p>
+                <div class="chart-container">
+                    <canvas id="temperatureChart"></canvas>
+                </div>
+            </article>
+
+            <article class="panel chart-panel">
+                <div class="panel-header">
+                    <div>
+                        <p class="eyebrow">SENSOR ANALYTICS</p>
+                        <h2>Activity Trend</h2>
+                    </div>
+                    <span class="tag">Activity</span>
+                </div>
+                <p class="muted">Activity values submitted during this session.</p>
+                <div class="chart-container">
+                    <canvas id="activityChart"></canvas>
+                </div>
+            </article>
+        </section>
+
+
+        <footer>
+            CattleStock · AI-Driven Smart Livestock Monitoring
+            <span>Development Prototype</span>
+        </footer>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
